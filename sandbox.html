@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"> <title>Pure React Samples</title> </head>
+<body>
+  <!-- Target container -->
+<div class="react-container"></div>
+  <!-- React library & ReactDOM-->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script>
+     // Pure React and JavaScript code
+     var items = [
+"1 lb Salmon",
+    "1 cup Pine Nuts",
+    "2 cups Butter Lettuce",
+    "1 Yellow Squash",
+    "1/2 cup Olive Oil"
+  ]
+    
+    var dish = React.createElement(
+        "ul", null,
+        items.map((ing,i) => React.createElement("li",{key: i}, ing)) 
+        )
+    console.log(dish)
+    // var root = React.createRoot( document.getElementById('react-container'))
+    // root.render(dish)
+</script>
+</body>
+</html>
