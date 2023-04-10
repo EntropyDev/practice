@@ -13,13 +13,13 @@ Requirements:
 */
 
 class Grid {
-    public blocks: Array<Array<[number, number]>>
+    public blocks: Array<Array<[number, number, number]>>
     public size: number
     public mines: Map<number,Array<number>>
 
     constructor(size: number){
         this.size = size
-        this.mines = new Map<number,Array<number>>
+        this.mines = new Map<number,Array<number>>()
         this.blocks = []
         this.setGrid()
     }
@@ -44,12 +44,13 @@ class Grid {
             this.blocks[i] = []
             for(let j: number=0; j< this.size; j++){
                 if(this.mines.get(i) && this.mines.get(i)?.includes(j)){
-                    this.blocks[i].push([1,0])
+                    this.blocks[i].push([1,0,0])
                 }else{
-                    this.blocks[i].push([0,0])
+                    this.blocks[i].push([0,0,0])
                 }
             }
         }
+        this.setClues()
     }
 
     private getXY(){
@@ -63,16 +64,54 @@ class Grid {
             return Math.floor(Math.random() * (max - min) + min);
     }
 
-
-}
-let g = new Grid(3)
-console.log(g.blocks)
-
-class Game {
-    public score: Number = 0    
-
-    constructor(){
+    public setClues(){
+        for(let i: number =0; i<this.size; i++){
+            for(let j: number = 0;j<this.size; j++){
+                let val: number = 0
+                if(i+1<this.size && j+1<this.size){
+                    if(this.blocks[i+1][j+1][0] == 1) val+=1
+                }
+                if(i+1<this.size && j-1>=0){
+                    if(this.blocks[i+1][j-1][0] == 1) val+=1
+                }
+                if(i+1<this.size){
+                    if(this.blocks[i+1][j][0] == 1) val+=1
+                }
+                if(i-1>=0){
+                    if(this.blocks[i-1][j][0] == 1) val+=1
+                }
+                if(i-1>=0 && j+1<this.size){
+                    if(this.blocks[i-1][j+1][0] == 1) val+=1
+                }
+                if(i-1>=0 && j-1>=0){
+                    if(this.blocks[i-1][j-1][0] == 1) val+=1
+                }
+                if(j+1<this.size){
+                    if(this.blocks[i][j+1][0] == 1) val+=1
+                }
+                if(j-1>=0){
+                    if(this.blocks[i][j-1][0] == 1) val+=1
+                }
+                this.blocks[i][j][1]=val                
+            }
+        }
     }
 
 }
 
+
+class Game {
+    public score: Number = 0    
+    
+    constructor(){
+    }
+    
+}
+
+
+class Play {
+    
+}
+
+let g = new Grid(4)
+console.log(g.blocks)
