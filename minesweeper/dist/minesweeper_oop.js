@@ -102,15 +102,61 @@ var Grid = /** @class */ (function () {
     return Grid;
 }());
 var Game = /** @class */ (function () {
-    function Game() {
+    function Game(size) {
         this.score = 0;
+        this.size = 3;
+        this.opened_count = 0;
+        this.startGame(size);
+        this.startScoring();
     }
+    Game.prototype.startGame = function (size) {
+        this.size = size;
+        var game = new Grid(this.size);
+        this.gameGrid = game.blocks;
+    };
+    //When player clicks on a block
+    Game.prototype.playerMove = function (x, y, clickFlag) {
+        if (!clickFlag) {
+            if (this.isMine(this.gameGrid, x, y) || this.opened_count == (this.size * this.size - this.size)) {
+                this.endGame();
+                return;
+            }
+            this.openBlock(this.gameGrid, x, y);
+        }
+        else {
+            this.setFlag(this.gameGrid, x, y);
+        }
+    };
+    Game.prototype.endGame = function () {
+        this.saveScore();
+        console.log("Game Over!!! Your score is " + this.score + ".");
+    };
+    Game.prototype.saveScore = function () {
+    };
+    Game.prototype.startScoring = function () {
+        var _this = this;
+        setInterval(function () {
+            _this.score += 1;
+            console.log(_this.score);
+        }, 1000);
+    };
+    Game.prototype.openBlock = function (grid, x, y) {
+        grid[x][y][1] = 1;
+        return grid;
+    };
+    Game.prototype.isMine = function (grid, x, y) {
+        if (grid[x][y][0] == 1)
+            return true;
+        return false;
+    };
+    Game.prototype.setFlag = function (grid, x, y) {
+        if (grid[x][y][1] == 0) {
+            grid[x][y][2] = 1 - grid[x][y][2];
+        }
+        return grid;
+    };
     return Game;
-}());
-var Play = /** @class */ (function () {
-    function Play() {
-    }
-    return Play;
 }());
 var g = new Grid(4);
 console.log(g.blocks);
+var game = new Game(3);

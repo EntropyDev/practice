@@ -90,7 +90,7 @@ class Grid {
                     if(this.blocks[i][j+1][0] == 1) val+=1
                 }
                 if(j-1>=0){
-                    if(this.blocks[i][j-1][0] == 1) val+=1
+                   if(this.blocks[i][j-1][0] == 1) val+=1
                 }
                 this.blocks[i][j][1]=val                
             }
@@ -101,17 +101,65 @@ class Grid {
 
 
 class Game {
-    public score: Number = 0    
-    
-    constructor(){
+    public score: number = 0
+    public size: number = 3 
+    public gameGrid: Array<Array<[number,number,number]>>
+    public opened_count: number = 0  
+
+    constructor(size: number){
+        this.startGame(size)
+        this.startScoring()
     }
-    
-}
+    private startGame(size: number){
+        this.size = size
+        let game = new Grid(this.size)
+        this.gameGrid = game.blocks
+    }
+    //When player clicks on a block
+    public playerMove(x: number, y: number, clickFlag: boolean){
+        if(!clickFlag){
+        if(this.isMine(this.gameGrid,x,y) || this.opened_count == (this.size*this.size - this.size)){
+            this.endGame()
+            return
+        }
+        this.openBlock(this.gameGrid,x,y)
+        }
+        else{
+            this.setFlag(this.gameGrid,x,y)
+        }
+    }
 
+    private endGame(){
+        this.saveScore()
+        console.log(`Game Over!!! Your score is ${this.score}.`)
+    }
+    private saveScore(){
 
-class Play {
-    
+    }
+    private startScoring(){
+        setInterval(()=>{
+            this.score += 1
+            console.log(this.score)
+        },1000)
+    }
+
+    private openBlock(grid: Array<Array<[number, number, number]>>,x: number,y: number){
+        grid[x][y][1] = 1
+        return grid
+    }
+    private isMine(grid: Array<Array<[number,number,number]>>,x:number,y:number){
+        if(grid[x][y][0]==1) return true
+        return false
+    }
+    private setFlag(grid: Array<Array<[number,number,number]>>,x:number,y:number){
+        if(grid[x][y][1]==0){
+            grid[x][y][2] = 1 - grid[x][y][2]
+        }
+        return grid
+    }
 }
 
 let g = new Grid(4)
 console.log(g.blocks)
+
+let game = new Game(3)
