@@ -11,6 +11,7 @@ Requirements:
     - user can flag blocks
     - show hint numbers around the mines
 */
+/* Git reset hard commit */
 var Grid = /** @class */ (function () {
     function Grid(size) {
         this.size = size;

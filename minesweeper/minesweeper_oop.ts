@@ -11,6 +11,7 @@ Requirements:
     - user can flag blocks
     - show hint numbers around the mines
 */
+/* Git reset hard commit */
 
 class Grid {
     public blocks: Array<Array<[number, number, number]>>
