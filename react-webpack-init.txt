@@ -1,0 +1,17 @@
+react
+react-router-dom
+react-dom
+request
+@babel/core
+@babel/preset-env
+@babel/preset-react
+babel-loader
+css-loader
+html-webpack-plugin
+sass
+sass-loader
+style-loader
+url-loader
+webpack
+webpack-cli
+webpack-dev-server
