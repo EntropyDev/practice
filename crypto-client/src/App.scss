@@ -187,10 +187,32 @@ html {
     padding-top: 1rem;
   }
   
-  #sidebar nav a span {
+  #sidebar .item-name {
     float: right;
-    color: #eeb004;
+    color: #000;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: smaller;
+    width: 100px;
   }
+  #sidebar li:hover .item-name {
+    color: #37d22c;
+  }
+
+
+  #sidebar .item-price {
+    width: 48px;
+  }
+
+  #sidebar .item-logo {
+    width: 18px;
+  }
+
+  #sidebar .item-percent {
+    width: 20px;
+  }
+
+
   #sidebar nav a.active span {
     color: inherit;
   }
@@ -215,20 +237,19 @@ html {
   #sidebar nav a {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     overflow: hidden;
-  
     white-space: pre;
     padding: 0.5rem;
-    border-radius: 8px;
     color: inherit;
     text-decoration: none;
     gap: 1rem;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.0625);
+    /* display: flex; */
+    padding: 1em;
   }
   
-  #sidebar nav a:hover {
-    background: #e3e3e3;
-  }
   
   #sidebar nav a.active {
     background: hsl(224, 98%, 58%);
@@ -381,3 +402,28 @@ html {
     justify-content: center;
     width: 100%;
   }
+
+
+
+  // New Styles
+  
+  
+//   .top-five-list > li{
+//     font-weight: 500;
+//     font-size: 1rem;
+//     font-family: inherit;
+//     /* border: none; */
+   
+    
+//     a{
+//       align-items: center;
+//   background-color: #fefdfe;
+//   border-radius: 1em;
+//   box-shadow: 0 0 1em rgba(0, 0, 0, 0.0625);
+//   display: flex;
+//   padding: 1em;
+//     }
+//     a:hover{
+//       background-color: #efefef!important;
+//     }
+// }

@@ -10,6 +10,8 @@ import Home from "./Home"
 import CryptoDetails from "./CryptoDetails";
 import CryptoDaily from "./CryptoDaily";
 
+import btclogo from "../public/assets/bitcoin-btc-logo.svg"
+
 const App = () => {
     const getResults = (event) => {
         event.preventDefault()
@@ -42,15 +44,50 @@ const App = () => {
               </form>
             </div>
             <nav>
-              <ul>
+              <ul className="top-five-list">
                 <li>
-                  <Link to="/">Home</Link>
+                  <Link to="/crypto/bitcoin">
+                    <span className="item-logo"><img src={btclogo}></img></span>
+                   <span className="item-name">Bitcoin</span>
+                   <span className="item-price">5 USD</span>
+                   <span className="item-percent"></span>
+                   </Link>
                 </li>
                 <li>
-                  <Link to="/crypto">Daily</Link>
+                  <Link to="/crypto/eth">
+
+                    <span className="item-logo"></span>
+                   <span className="item-name">Ethereum</span>
+                   <span className="item-price">5 USD</span>
+                   <span className="item-percent"></span>
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/crypto/2">Crypto</Link>
+                  <Link to="/crypto/xrp">
+
+                    <span className="item-logo"></span>
+                   <span className="item-name">XRP</span>
+                   <span className="item-price">5 USD</span>
+                   <span className="item-percent"></span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/crypto/tron">
+
+                    <span className="item-logo"></span>
+                   <span className="item-name">TRON</span>
+                   <span className="item-price">5 USD</span>
+                   <span className="item-percent"></span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/crypto/doge">
+
+                    <span className="item-logo"></span>
+                   <span className="item-name">Dogecoin</span>
+                   <span className="item-price">5 USD</span>
+                   <span className="item-percent"></span>
+                  </Link>
                 </li>
               </ul>
             </nav>

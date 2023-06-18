@@ -19,6 +19,12 @@ const Wall = () => {
         .then(data => {
             const latest =data.data
             setLatest(latest)
+        })
+        .catch((err) => {
+            setError(err.message);
+            setLatest([]);
+          })
+        .finally(()=>{
             setLoading(false)
         })
     }
