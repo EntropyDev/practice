@@ -22,18 +22,7 @@ const CryptoDaily = () => {
       }}
     >
       <Col className="gutter-row" span={8}>
-        <div style={style}>
-        <Card
-    hoverable
-    style={{
-      width: 240,
-      border: '2px dashed #3992ff'
-    }}
-    cover={<img alt="example" src="https://i.imgur.com/qQAWrkC.png" />}
-  >
-    {/* <Meta title="Vaibhav Chimalgi" description="Full stack Developer" /> */}
-  </Card>
-        </div>
+        
       </Col>
       <Col className="gutter-row" span={8}>
         <div style={style}>col-8</div>
