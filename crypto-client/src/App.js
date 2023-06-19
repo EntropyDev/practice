@@ -15,7 +15,7 @@ import CryptoDetails from "./CryptoDetails";
 import CryptoDaily from "./CryptoDaily";
 import NewsText from './NewsText'
 
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Breadcrumb, Divider, Layout, Menu, theme, Select } from 'antd';
 import {SmileTwoTone, HeartTwoTone, DollarOutlined , AppstoreOutlined, MailOutlined, CalendarOutlined, SettingOutlined, LinkOutlined, HeartOutlined } from '@ant-design/icons';
 
 const { Header, Content, Sider } = Layout;
@@ -42,11 +42,11 @@ function getItem(label, key, icon, children, type) {
     getItem('CryptoClient','1',<DollarOutlined />)]
 
 const sideNavItems = [
-    getItem('Bitcoin', '1', <HeartTwoTone twoToneColor="#eb2f96"/>),
-    getItem('Ethereum', '2', <SmileTwoTone /> ),
-    getItem('XRP', '3', <SmileTwoTone /> ),
-    getItem('TRON', '4', <SmileTwoTone /> ),
-    getItem('Dogecoin', '5', <SmileTwoTone /> ),
+    getItem('Bitcoin', '1', <DollarOutlined style={{color:"#000"}}/>),
+    getItem('Ethereum', '2', <DollarOutlined style={{color:'#000'}} /> ),
+    getItem('XRP', '3', <DollarOutlined style={{color:'#000'}} /> ),
+    getItem('TRON', '4', <DollarOutlined style={{color:'#000'}} /> ),
+    getItem('Dogecoin', '5', <DollarOutlined style={{color:'#000'}} /> ),
     {
       type: 'divider',
     },
@@ -93,19 +93,65 @@ const goToLink = (obj) => {
             borderRight: '1px solid',
           }}
         >
+          <Divider orientation="left" style={{
+            fontSize: '12px',
+            textTransform: 'uppercase'
+        }}>Favorites</Divider>
           <Menu
             mode="inline"
-            defaultSelectedKeys={['1']}
+            
             defaultOpenKeys={['1']}
             onClick={goToLink}
             className="side-nav"
             style={{
-              height: '100%',
+              height: 'auto',
               borderRight: 0,
               borderRadius: 0
             }}
             items={sideNavItems}
           />
+          <Divider orientation="left" style={{
+            fontSize: '12px',
+            textTransform: 'uppercase'
+        }}>Search crypto</Divider>
+        <Select
+    showSearch
+    style={{
+      width: 200,
+    }}
+    placeholder="Search to Select"
+    optionFilterProp="children"
+    filterOption={(input, option) => (option?.label ?? '').includes(input)}
+    filterSort={(optionA, optionB) =>
+      (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
+    }
+    options={[
+      {
+        value: '1',
+        label: 'Not Identified',
+      },
+      {
+        value: '2',
+        label: 'Closed',
+      },
+      {
+        value: '3',
+        label: 'Communicated',
+      },
+      {
+        value: '4',
+        label: 'Identified',
+      },
+      {
+        value: '5',
+        label: 'Resolved',
+      },
+      {
+        value: '6',
+        label: 'Cancelled',
+      },
+    ]}
+  />
         </Sider>
         <Layout
           style={{
