@@ -13,6 +13,7 @@ root.render(
     <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />}>
+        <Route index element={<CryptoDaily />} />
         <Route path="crypto" element={<CryptoDaily />} />
         <Route path="crypto/:id" element={<CryptoDetails />} />
       </Route>

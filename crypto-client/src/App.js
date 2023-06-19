@@ -16,7 +16,7 @@ import CryptoDaily from "./CryptoDaily";
 import NewsText from './NewsText'
 
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
-import {SmileTwoTone, HeartTwoTone, UserOutlined, AppstoreOutlined, MailOutlined, CalendarOutlined, SettingOutlined, LinkOutlined, HeartOutlined } from '@ant-design/icons';
+import {SmileTwoTone, HeartTwoTone, DollarOutlined , AppstoreOutlined, MailOutlined, CalendarOutlined, SettingOutlined, LinkOutlined, HeartOutlined } from '@ant-design/icons';
 
 const { Header, Content, Sider } = Layout;
 
@@ -39,7 +39,7 @@ function getItem(label, key, icon, children, type) {
   }
 
   const topNavItems = [
-    getItem('CryptoClient','1')]
+    getItem('CryptoClient','1',<DollarOutlined />)]
 
 const sideNavItems = [
     getItem('Bitcoin', '1', <HeartTwoTone twoToneColor="#eb2f96"/>),
@@ -64,6 +64,7 @@ const App = () => {
     event.preventDefault()
     console.log("get rfesults")
 }
+const goToHome = () => navigate('/')
 const goToLink = (obj) => {
     console.log(coinKey[obj.key])
     navigate(`/crypto/${coinKey[obj.key]}`)
@@ -81,7 +82,7 @@ const goToLink = (obj) => {
         }}
       >
         <div className="demo-logo" />
-        <Menu theme="dark" mode="inline" items={topNavItems} width={160} style={{width: '160px',color: '#1677ff'}} />
+        <Menu theme="dark" mode="inline" items={topNavItems} width={200} style={{width: '200px',color: '#1677ff'}} onClick={goToHome} />
         <NewsText />
       </Header>
       <Layout>
@@ -89,6 +90,7 @@ const goToLink = (obj) => {
           width={260}
           style={{
             background: colorBgContainer,
+            borderRight: '1px solid',
           }}
         >
           <Menu
@@ -100,6 +102,7 @@ const goToLink = (obj) => {
             style={{
               height: '100%',
               borderRight: 0,
+              borderRadius: 0
             }}
             items={sideNavItems}
           />
