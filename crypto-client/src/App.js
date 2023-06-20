@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, createContext, useEffect, useContext } from "react";
 import {
     Routes,
     Route,
@@ -6,7 +6,6 @@ import {
     Outlet,
     useNavigate
 } from 'react-router-dom'
-import { useState } from 'react';
 
 
 import Wall from "./Wall"
@@ -52,6 +51,7 @@ const sideNavItems = [
     },
   ];
 
+  export const PriceContext = createContext()
 
 
 const App = () => {
@@ -70,10 +70,20 @@ const goToLink = (obj) => {
     navigate(`/crypto/${coinKey[obj.key]}`)
 }
 
+const [prices, setPrices] = useState([])
+const url = 'https://api.coinpaprika.com/v1/tickers?limit=50'
+
+useEffect(() => {
+  fetch(url)
+        .then(res => res.json())
+        .then( res => {
+          setPrices(res)
+        })
+},[])
 
     return(
-        <>
         
+        <PriceContext.Provider value={prices}>
           <Layout>
       <Header
         style={{
@@ -88,7 +98,9 @@ const goToLink = (obj) => {
       >
         <div className="demo-logo" />
         <Menu theme="dark" mode="inline" items={topNavItems} width={200} style={{width: '200px',color: '#1677ff'}} onClick={goToHome} />
+        <marquee behavior="scroll" direction="left">
         <NewsText />
+        </marquee>
       </Header>
       <Layout>
         <Sider
@@ -186,7 +198,8 @@ const goToLink = (obj) => {
         </Layout>
       </Layout>
     </Layout>
-        </>
+    </PriceContext.Provider>
+    
     )
 }
 
