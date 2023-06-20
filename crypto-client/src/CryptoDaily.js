@@ -4,6 +4,7 @@ import { Card,Row, Col, Divider, Space } from "antd";
 const { Meta } = Card;
 import Pair from "./Pair";
 import TopCardValues from "./TopCardValues";
+import IndiaTradeCard from "./IndiaTrade";
 
 const style = {
     padding: '8px 0px',
@@ -30,7 +31,7 @@ const style = {
             "value": beta_value
         },
         {
-            "label": "Circulating Supply",
+            "label": "Supply",
             "value": circulating_supply
         },
         {
@@ -119,7 +120,9 @@ const CryptoDaily = () => {
         </Space>   
       </Col>
       <Col className="gutter-row" span={8}>
-        <div style={style}>col-8</div>
+        <div style={style}>
+            <IndiaTradeCard />
+        </div>
       </Col>
     </Row>
         <Divider orientation="left" style={{

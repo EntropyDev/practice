@@ -79,6 +79,11 @@ const goToLink = (obj) => {
         style={{
           display: 'flex',
           alignItems: 'center',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          zIndex: 999
         }}
       >
         <div className="demo-logo" />
@@ -91,6 +96,12 @@ const goToLink = (obj) => {
           style={{
             background: colorBgContainer,
             borderRight: '1px solid',
+              overflow: 'auto',
+              height: '100vh',
+              position: 'fixed',
+              left: 0,
+              top: 64,
+              bottom: 0,
           }}
         >
           <Divider orientation="left" style={{
@@ -156,6 +167,8 @@ const goToLink = (obj) => {
         <Layout
           style={{
             padding: '0',
+            marginLeft: 260,
+            marginTop: 64,
           }}
         >
           <Content
@@ -164,6 +177,7 @@ const goToLink = (obj) => {
               margin: 0,
               minHeight: 280,
               background: colorBgContainer,
+              paddingBottom: 32
             }}
           >
             

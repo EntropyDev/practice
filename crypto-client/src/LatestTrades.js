@@ -12,7 +12,6 @@ import {
 } from '@ant-design/icons'
 
 
-const count = 3;
 const dataUrl = `https://data.binance.com/api/v3/ticker/24hr`
 
 
@@ -20,42 +19,27 @@ const LatestTrades = () => {
 
     const [initLoading, setInitLoading] = useState(true);
     const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
-  const [list, setList] = useState([]);
-  
-  useEffect(() => {
-    fetch(dataUrl)
-      .then((res) => res.json())
-      .then((res) => {
-        setInitLoading(false);
-        setData(res);
-        setList(res.slice(0,10));
-      });
-  }, []);
+    const [data, setData] = useState([]);
+    const [list, setList] = useState([]);
+    const [loadCount, setLoadCount] = useState(0)
+
+    useEffect(() => {
+        fetch(dataUrl)
+        .then((res) => res.json())
+        .then((res) => {
+            setData(res);
+            setList(res.slice(0,10))
+            setInitLoading(false);
+        });
+    }, []);
 
   const onLoadMore = () => {
     setLoading(true);
+    setLoadCount((prevCount) => prevCount+1)
     setList(
-      data.concat(
-        [...new Array(count)].map(() => ({
-          loading: true,
-          name: {},
-          picture: {},
-        })),
-      ),
+        list.concat(data.slice((loadCount-1)*10,loadCount*10))
     );
-    fetch(dataUrl)
-      .then((res) => res.json())
-      .then((res) => {
-        const newData = data.concat(res.results);
-        setData(newData);
-        setList(newData);
-        setLoading(false);
-        // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
-        // In real scene, you can using public method of react-virtualized:
-        // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
-        window.dispatchEvent(new Event('resize'));
-      });
+    setLoading(false)
   };
   const loadMore =
     !initLoading && !loading ? (
