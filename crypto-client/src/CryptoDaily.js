@@ -2,6 +2,8 @@ import React , {useState, useEffect} from "react";
 import LatestTrades from "./LatestTrades";
 import { Card,Row, Col, Divider, Space } from "antd";
 const { Meta } = Card;
+import Pair from "./Pair";
+import TopCardValues from "./TopCardValues";
 
 const style = {
     padding: '8px 0px',
@@ -16,24 +18,77 @@ const style = {
     padding: '12px'
   };
 
+
+  function buildPair({beta_value, circulating_supply, max_supply, last_updated, id, quotes  }){
+    return [
+        {
+            "label": "Price",
+            "value": quotes.USD.price
+        },
+        {
+            "label": "β val",
+            "value": beta_value
+        },
+        {
+            "label": "Circulating Supply",
+            "value": circulating_supply
+        },
+        {
+            "label": "Max Supply",
+            "value": max_supply
+        },
+        
+        {
+            "label": "15m ago",
+            "value": quotes.USD.percent_change_15m
+        },
+        {
+            "label": "1h ago",
+            "value": quotes.USD.percent_change_1h
+        },
+        {
+            "label": "6h ago",
+            "value": quotes.USD.percent_change_6h
+        },
+        {
+            "label": "24h ago",
+            "value": quotes.USD.percent_change_24h
+        }
+    ]
+  }
+
   
-const dataUrl = 'https://api.coinpaprika.com/v1/tickers'
+const dataUrl = 'https://api.coinpaprika.com/v1/tickers?limit=20'
 
 const CryptoDaily = () => {
 
     const [initLoading, setInitLoading] = useState(true);
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);
+    const [btc_pairs, setBtcPairs] = useState([]);
+    const [eth_pairs, setEthPairs] = useState([]);
+    const [doge_pairs, setDogePairs] = useState([]);
 
-    useEffect(() => {
-        fetch(dataUrl)
+    const fetchData = async (url) => {
+        await fetch(url)
         .then(res => res.json())
         .then( res => {
-            console.log("Top card")
-            console.log(res)
+            setData({res})
+            let btc_pairs = buildPair(res.filter((obj) => obj.id === 'btc-bitcoin')[0])
+            let eth_pairs = buildPair(res.filter((obj) => obj.id === 'eth-ethereum')[0])
+            let doge_pairs = buildPair(res.filter((obj) => obj.id === 'doge-dogecoin')[0])
+            setBtcPairs(btc_pairs)
+            setEthPairs(eth_pairs)
+            setDogePairs(doge_pairs)
+            
             setInitLoading(false);
-        setData(res);
         })
+    }
+
+    useEffect( () => {
+        ( async () => {
+            await fetchData(dataUrl)
+        })()
     } ,[])
 
     return (
@@ -51,126 +106,17 @@ const CryptoDaily = () => {
             fontSize: '12px',
             textTransform: 'uppercase'
         }}>ticker</Divider>
-        {initLoading ? `Please wait ..` : null}
-        {data.length > 0 && 
-        <Space align="baseline" className="top-card">
-        <Card title="Bitcoin">
-            <Card.Grid style={gridStyle} hoverable={false}>
-                 <Space direction='vertical'>
-                        <p className='pair-label'> Count </p>
-                        <p className='pair-value'>{data[0].id}</p>
-                    </Space>
-            </Card.Grid>
-            <Card.Grid style={gridStyle} hoverable={false}>
-                 <Space direction='vertical'>
-                        <p className='pair-label'> Count </p>
-                        <p className='pair-value'>{data[0].id}</p>
-                    </Space>
-            </Card.Grid>
-            <Card.Grid style={gridStyle} hoverable={false}>
-                 <Space direction='vertical'>
-                        <p className='pair-label'> Count </p>
-                        <p className='pair-value'>{data[0].id}</p>
-                    </Space>
-            </Card.Grid>
-            <Card.Grid style={gridStyle} hoverable={false}>
-                 <Space direction='vertical'>
-                        <p className='pair-label'> Count </p>
-                        <p className='pair-value'>{data[0].id}</p>
-                    </Space>
-            </Card.Grid>
-            <Card.Grid style={gridStyle} hoverable={false}>
-                 <Space direction='vertical'>
-                        <p className='pair-label'> Count </p>
-                        <p className='pair-value'>{data[0].id}</p>
-                    </Space>
-            </Card.Grid>
-            <Card.Grid style={gridStyle} hoverable={false}>
-                 <Space direction='vertical'>
-                        <p className='pair-label'> Count </p>
-                        <p className='pair-value'>{data[0].id}</p>
-                    </Space>
-            </Card.Grid>
-        </Card>
-        <Card title="Ethereum">
-            <Card.Grid style={gridStyle} hoverable={false}>
-                 <Space direction='vertical'>
-                        <p className='pair-label'> Count </p>
-                        <p className='pair-value'>{data[0].id}</p>
-                    </Space>
-            </Card.Grid>
-            <Card.Grid style={gridStyle} hoverable={false}>
-                 <Space direction='vertical'>
-                        <p className='pair-label'> Count </p>
-                        <p className='pair-value'>{data[0].id}</p>
-                    </Space>
-            </Card.Grid>
-            <Card.Grid style={gridStyle} hoverable={false}>
-                 <Space direction='vertical'>
-                        <p className='pair-label'> Count </p>
-                        <p className='pair-value'>{data[0].id}</p>
-                    </Space>
-            </Card.Grid>
-            <Card.Grid style={gridStyle} hoverable={false}>
-                 <Space direction='vertical'>
-                        <p className='pair-label'> Count </p>
-                        <p className='pair-value'>{data[0].id}</p>
-                    </Space>
-            </Card.Grid>
-            <Card.Grid style={gridStyle} hoverable={false}>
-                 <Space direction='vertical'>
-                        <p className='pair-label'> Count </p>
-                        <p className='pair-value'>{data[0].id}</p>
-                    </Space>
-            </Card.Grid>
-            <Card.Grid style={gridStyle} hoverable={false}>
-                 <Space direction='vertical'>
-                        <p className='pair-label'> Count </p>
-                        <p className='pair-value'>{data[0].id}</p>
-                    </Space>
-            </Card.Grid>
-        </Card>
-        <Card title="Dogecoin">
-            <Card.Grid style={gridStyle} hoverable={false}>
-                 <Space direction='vertical'>
-                        <p className='pair-label'> Count </p>
-                        <p className='pair-value'>{data[0].id}</p>
-                    </Space>
-            </Card.Grid>
-            <Card.Grid style={gridStyle} hoverable={false}>
-                 <Space direction='vertical'>
-                        <p className='pair-label'> Count </p>
-                        <p className='pair-value'>{data[0].id}</p>
-                    </Space>
-            </Card.Grid>
-            <Card.Grid style={gridStyle} hoverable={false}>
-                 <Space direction='vertical'>
-                        <p className='pair-label'> Count </p>
-                        <p className='pair-value'>{data[0].id}</p>
-                    </Space>
-            </Card.Grid>
-            <Card.Grid style={gridStyle} hoverable={false}>
-                 <Space direction='vertical'>
-                        <p className='pair-label'> Count </p>
-                        <p className='pair-value'>{data[0].id}</p>
-                    </Space>
-            </Card.Grid>
-            <Card.Grid style={gridStyle} hoverable={false}>
-                 <Space direction='vertical'>
-                        <p className='pair-label'> Count </p>
-                        <p className='pair-value'>{data[0].id}</p>
-                    </Space>
-            </Card.Grid>
-            <Card.Grid style={gridStyle} hoverable={false}>
-                 <Space direction='vertical'>
-                        <p className='pair-label'> Count </p>
-                        <p className='pair-value'>{data[0].id}</p>
-                    </Space>
-            </Card.Grid>
-        </Card>
-
-        </Space>
-        }
+            <Space align="baseline">
+                <Card title="Bitcoin" loading={initLoading}>
+                 <TopCardValues pairs={btc_pairs} /> 
+                </Card>
+                <Card title="Ethereum" loading={initLoading}>
+                 <TopCardValues pairs={eth_pairs} /> 
+                </Card>
+                <Card title="Dogecoin" loading={initLoading}>
+                 <TopCardValues pairs={doge_pairs} /> 
+                </Card>
+        </Space>   
       </Col>
       <Col className="gutter-row" span={8}>
         <div style={style}>col-8</div>

@@ -27,8 +27,6 @@ const LatestTrades = () => {
     fetch(dataUrl)
       .then((res) => res.json())
       .then((res) => {
-        console.log("hh")
-        console.log(res)
         setInitLoading(false);
         setData(res);
         setList(res.slice(0,10));
